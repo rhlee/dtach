@@ -102,7 +102,7 @@ main(int argc, char **argv)
 		if (mode == '?')
 			usage();
 		else if (mode != 'a' && mode != 'c' && mode != 'n' &&
-			 mode != 'A')
+			 mode != 'A' && mode != 'q')
 		{
 			printf("%s: Invalid mode '-%c'\n", progname, mode);
 			printf("Try '%s --help' for more information.\n",
@@ -128,6 +128,13 @@ main(int argc, char **argv)
 	}
 	sockname = *argv;
 	++argv; --argc;
+
+	if(mode == 'q')
+	{
+	  printf("query mode");
+	  return 0;
+	}
+	
 
 	while (argc >= 1 && **argv == '-')
 	{
