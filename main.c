@@ -132,6 +132,7 @@ main(int argc, char **argv)
 	if(mode == 'q')
 	{
 	  printf("query mode");
+	  query_main('adasdsad');
 	  return 0;
 	}
 	

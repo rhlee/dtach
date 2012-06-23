@@ -93,6 +93,7 @@ enum
 	MSG_DETACH	= 2,
 	MSG_WINCH	= 3,
 	MSG_REDRAW	= 4,
+	MSG_QUERY	= 5,
 };
 
 enum
@@ -129,6 +130,7 @@ struct packet
 
 int attach_main(int noerror);
 int master_main(char **argv, int waitattach);
+int query_main(char *path);
 
 #ifdef sun
 #define BROKEN_MASTER
