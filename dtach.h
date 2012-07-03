@@ -137,8 +137,11 @@ int query_main(char *path);
 
 int _log(const char *fmt, ...);
 void error(int line, char * file);
+void register_master();
 
 #ifdef sun
 #define BROKEN_MASTER
 #endif
 #endif
+
+#define MAX_MASTERS 32

@@ -555,6 +555,8 @@ master_main(char **argv, int waitattach)
     /* Child - this becomes the master */
     if (fd[0] != -1)
       close(fd[0]);
+    _log("master process starting");
+    register_master();
     master_process(s, argv, waitattach, fd[1]);
     return 0;
   }
