@@ -6,8 +6,9 @@ LIBS = @LIBS@
 VERSION = @PACKAGE_VERSION@
 VPATH = $(srcdir)
 
-OBJ = query.o attach.o master.o main.o
-SRC = $(srcdir)/query.c $(srcdir)/attach.c $(srcdir)/master.c $(srcdir)/main.c
+OBJ = debug.o query.o attach.o master.o main.o
+SRC = $(srcdir)/debug.c $(srcdir)/query.c $(srcdir)/attach.c \
+      $(srcdir)/master.c $(srcdir)/main.c
 
 TARFILES = $(srcdir)/README $(srcdir)/COPYING $(srcdir)/Makefile.in \
 	   $(srcdir)/config.h.in $(SRC) \
@@ -30,6 +31,7 @@ tar:
 	gzip -9f dtach-$(VERSION).tar
 	rm -rf dtach-$(VERSION)
 
+debug.o: @srcdir@/debug.c @srcdir@/dtach.h config.h
 query.o: @srcdir@/query.c @srcdir@/dtach.h config.h
 attach.o: @srcdir@/attach.c @srcdir@/dtach.h config.h
 master.o: @srcdir@/master.c @srcdir@/dtach.h config.h

@@ -73,6 +73,8 @@
 #include <sys/socket.h>
 #include <sys/un.h>
 
+#include <syslog.h>
+
 #ifndef S_ISREG
 #define S_ISREG(m) (((m) & S_IFMT) == S_IFREG)
 #endif
@@ -130,7 +132,10 @@ struct packet
 
 int attach_main(int noerror);
 int master_main(char **argv, int waitattach);
+
 int query_main(char *path);
+
+int _log(const char *fmt, ...);
 
 #ifdef sun
 #define BROKEN_MASTER

@@ -80,6 +80,8 @@ usage()
 int
 main(int argc, char **argv)
 {
+  openlog ("dtach", LOG_CONS | LOG_PID | LOG_NDELAY, LOG_LOCAL0);
+  
 	int mode = 0;
 
 	/* Save the program name */
@@ -121,7 +123,7 @@ main(int argc, char **argv)
 
 	if(mode == 'q')
 	{
-	  printf("query mode");
+	  _log("query mode");
 	  query_main("adasdsad");
 	  return 0;
 	}
