@@ -119,6 +119,13 @@ main(int argc, char **argv)
 	}
 	++argv; --argc;
 
+	if(mode == 'q')
+	{
+	  printf("query mode");
+	  query_main("adasdsad");
+	  return 0;
+	}
+
 	if (argc < 1)
 	{
 		printf("%s: No socket was specified.\n", progname);
@@ -128,14 +135,6 @@ main(int argc, char **argv)
 	}
 	sockname = *argv;
 	++argv; --argc;
-
-	if(mode == 'q')
-	{
-	  printf("query mode");
-	  query_main('adasdsad');
-	  return 0;
-	}
-	
 
 	while (argc >= 1 && **argv == '-')
 	{
