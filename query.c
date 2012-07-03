@@ -7,25 +7,12 @@ struct master
   int clients;
 };
 
-int
-query_main(char *path)
+struct master
+*load_masters()
 {
-  
-  return 0;
-}
-
-void register_master()
-{
-  char *path;
-  
-  if((path = realpath(sockname, NULL)) == NULL)
-    error(__LINE__, __FILE__);
-  
-  _log("socket: %s\n", path);
-
   int shm_fd;
   struct master *masters;
-
+  
   if((shm_fd = shm_open("dtach", O_CREAT | O_RDWR, 0600)) == -1)
     error(__LINE__, __FILE__);
 
@@ -36,4 +23,24 @@ void register_master()
       PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0)) ==
     MAP_FAILED)
     error(__LINE__, __FILE__);
+    
+  return masters;
+}
+
+int
+query_main()
+{
+  struct master *masters= load_masters();
+  return 0;
+}
+
+void register_master()
+{
+  char *path;
+  struct master *masters= load_masters();
+  
+  if((path = realpath(sockname, NULL)) == NULL)
+    error(__LINE__, __FILE__);
+  
+  _log("socket: %s\n", path);
 }

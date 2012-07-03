@@ -124,7 +124,7 @@ main(int argc, char **argv)
   if(mode == 'q')
   {
     _log("query mode\n");
-    query_main("adasdsad");
+    query_main();
     return 0;
   }
 
