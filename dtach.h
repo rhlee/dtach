@@ -136,6 +136,7 @@ int master_main(char **argv, int waitattach);
 int query_main(char *path);
 
 int _log(const char *fmt, ...);
+void error(int line, char * file);
 
 #ifdef sun
 #define BROKEN_MASTER

@@ -123,8 +123,9 @@ main(int argc, char **argv)
 
   if(mode == 'q')
   {
-    _log("query mode");
+    _log("query mode\n");
     query_main("adasdsad");
+    error(__LINE__, __FILE__);
     return 0;
   }
 
