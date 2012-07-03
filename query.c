@@ -56,7 +56,7 @@ query_main()
   for(i = 0; i < MAX_MASTERS; i++)
   {
     valid_master(master);
-    printf("x%-10ix\n", master->pid);
+    printf("%i %s\n", master->pid, master->address);
     master++;
   }
   
@@ -76,4 +76,5 @@ void register_master()
   while(valid_master(master)) master++;
 
   master->pid = getpid();
+  strncpy(master->address, path, 256);
 }
