@@ -28,19 +28,52 @@ struct master
 }
 
 int
+valid_master(struct master *master)
+{
+  if(master->pid == 0)
+  {
+    memset(master, 0, sizeof(struct master));
+    return 0;
+  }
+  else if(kill(master->pid, 0) == -1)
+  {
+    if(errno == ESRCH)
+    {
+      memset(master, 0, sizeof(struct master));
+      return 0;
+    }
+    else error(__LINE__, __FILE__);
+  }
+  return 1;
+}
+
+int
 query_main()
 {
-  struct master *masters= load_masters();
+  int i;
+  struct master *master = load_masters();
+
+  for(i = 0; i < MAX_MASTERS; i++)
+  {
+    valid_master(master);
+    printf("x%-10ix\n", master->pid);
+    master++;
+  }
+  
   return 0;
 }
 
 void register_master()
 {
   char *path;
-  struct master *masters= load_masters();
+  struct master *master = load_masters();
   
   if((path = realpath(sockname, NULL)) == NULL)
     error(__LINE__, __FILE__);
   
   _log("socket: %s\n", path);
+
+  while(valid_master(master)) master++;
+
+  master->pid = getpid();
 }
