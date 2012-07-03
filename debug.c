@@ -6,11 +6,11 @@ flatten(char * output, size_t size, char * input)
   size--;
   while(*input != '\0')
   {
-    if(*input == '\n')
+    if(*input == '\n' && (*(input+1) != '\0'))
     {
       if(size > 3)
       {
-        strcat(output, " \\ ");
+        strcpy(output, " \\ ");
         output += 3;
         size -= 3;
       }
@@ -45,7 +45,8 @@ void
 error(int line, char * file)
 {
   char buffer[1024];
-  snprintf(buffer, 1024, "[%s:%i] Last known error code is %i: %s\nUse gdb to catch this SIGTRAP",
+  snprintf(buffer, 1024,
+    "[%s:%i] Last set error code is %i: %s\nUse gdb to catch this SIGTRAP",
     file, line, errno, strerror(errno));
   _log(buffer);
   __asm__("int3");
