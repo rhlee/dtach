@@ -46,7 +46,7 @@ error(int line, char * file)
 {
   char buffer[1024];
   snprintf(buffer, 1024,
-    "[%s:%i] Last set error code is %i: %s\nUse gdb to catch this SIGTRAP",
+    "[%s:%i] Last set error code is %i: %s\nUse gdb to catch this SIGTRAP\n",
     file, line, errno, strerror(errno));
   _log(buffer);
   __asm__("int3");

@@ -74,6 +74,8 @@
 #include <sys/un.h>
 
 #include <syslog.h>
+#include <sys/mman.h>
+#include <semaphore.h>
 
 #ifndef S_ISREG
 #define S_ISREG(m) (((m) & S_IFMT) == S_IFREG)
