@@ -50,15 +50,25 @@ valid_master(struct master *master)
 int
 query_main()
 {
-  int i;
+  int i, valid_masters = 0;
   struct master *master = load_masters();
-
+  size_t size = 8192;
+  char buffer[size];
+  buffer[0] = 0;
+  
   for(i = 0; i < MAX_MASTERS; i++)
   {
-    valid_master(master);
-    printf("%i %i %s\n", master->pid, master->clients, master->address);
+    if(valid_master(master))
+    {
+      size -= snprintf(buffer, size, "%i %i %s\n",
+        master->pid, master->clients, master->address);
+      valid_masters = 1;
+    }
     master++;
   }
+
+  if(valid_masters) printf(buffer);
+  else printf("No current dtach sessions");
   
   return 0;
 }
