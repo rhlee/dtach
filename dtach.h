@@ -140,6 +140,8 @@ int query_main();
 int _log(const char *fmt, ...);
 void error(int line, char * file);
 void register_master();
+void register_client();
+void deregister_client();
 
 #ifdef sun
 #define BROKEN_MASTER

@@ -56,7 +56,7 @@ query_main()
   for(i = 0; i < MAX_MASTERS; i++)
   {
     valid_master(master);
-    printf("%i %s\n", master->pid, master->address);
+    printf("%i %i %s\n", master->pid, master->clients, master->address);
     master++;
   }
   
@@ -77,4 +77,16 @@ void register_master()
 
   master->pid = getpid();
   strncpy(master->address, path, 256);
+}
+
+void register_client()
+{
+  struct master *master = load_masters();
+  master->clients++;
+}
+
+void deregister_client()
+{
+  struct master *master = load_masters();
+  master->clients--;
 }

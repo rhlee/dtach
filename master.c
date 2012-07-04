@@ -324,6 +324,8 @@ control_activity(int s)
   if (p->next)
     p->next->pprev = &p->next;
   *(p->pprev) = p;
+
+  register_client();
 }
 
 /* Process activity from a client. */
@@ -346,6 +348,7 @@ client_activity(struct client *p)
       p->next->pprev = p->pprev;
     *(p->pprev) = p->next;
     free(p);
+    deregister_client();
     return;
   } 
 
