@@ -55,12 +55,20 @@ query_main()
   size_t size = 8192;
   char buffer[size];
   buffer[0] = 0;
+
+  size -= snprintf(buffer + strlen(buffer), size,
+    "  PID   Clients  Socket\n ");
   
+  char *div = buffer + strlen(buffer);
+  memset(div, '=', 60 * sizeof(char));
+  div[60] = '\n';
+  div[61] = '\0';
+
   for(i = 0; i < MAX_MASTERS; i++)
   {
     if(valid_master(master))
     {
-      size -= snprintf(buffer, size, "%i %i %s\n",
+      size -= snprintf(buffer + strlen(buffer), size, "  %-5i %-8i %s\n",
         master->pid, master->clients, master->address);
       valid_masters = 1;
     }
