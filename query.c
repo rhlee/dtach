@@ -7,6 +7,8 @@ struct master
   int clients;
 };
 
+struct master *registered_master;
+
 struct master
 *load_masters()
 {
@@ -81,7 +83,8 @@ query_main()
   return 0;
 }
 
-void register_master()
+void
+register_master()
 {
   char *path;
   struct master *master = load_masters();
@@ -92,19 +95,20 @@ void register_master()
   _log("socket: %s\n", path);
 
   while(valid_master(master)) master++;
+  registered_master = master;
 
   master->pid = getpid();
   strncpy(master->address, path, 256);
 }
 
-void register_client()
+void
+register_client()
 {
-  struct master *master = load_masters();
-  master->clients++;
+  registered_master->clients++;
 }
 
-void deregister_client()
+void
+deregister_client()
 {
-  struct master *master = load_masters();
-  master->clients--;
+  registered_master->clients--;
 }
